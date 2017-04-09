@@ -23,11 +23,22 @@ int currentGestureID;
 Polygon tempP;
 int tmpXp[];
 int tmpYp[];
+PImage bg_img;
+PFont font;
+boolean add1stMessage;
+boolean add2ndMessage;
+boolean add1stPhoto;
+boolean add2ndPhoto;
 
+void settings()
+{
+  //fullScreen();
+  size(2880, 1800, P2D);
+}
 
 void setup() {
-  size(1024, 768, P2D);
-  background(0, 0, 0);
+  bg_img = loadImage("../assets/mycelial/fullSlider_cropped3.png");
+  background(bg_img);
   noStroke();
   oscSetup();
   currentGestureID = -1;
@@ -36,17 +47,127 @@ void setup() {
     gestureArray[i] = new Gesture(width, height);
   }
   clearGestures();
+  font = loadFont("BlowBrush-48.vlw");
+  textFont(font, 32);
 }
 
 
 void draw() {
-  background(0);
+  background(bg_img);
 
   updateGeometry();
-  fill(255, 255, 245);
+  fill(0,0,0);
   for (int i = 0; i < nGestures; i++) {
     renderGesture(gestureArray[i], width, height);
   }
+  drawChat();
+  drawImages();
+}
+
+void drawImages()
+{
+  PImage p1;
+  PImage p2;
+  PImage p3;
+  PImage p4;
+  PImage p5;
+  
+  p1 = loadImage("../assets/mycelial/selfies/01.jpg");
+  p2 = loadImage("../assets/mycelial/selfies/02.jpg");
+  p3 = loadImage("../assets/mycelial/selfies/03.jpg");
+  p4 = loadImage("../assets/mycelial/selfies/04.jpg");
+  p5 = loadImage("../assets/mycelial/selfies/05.jpg");
+  
+  pushMatrix();
+  translate(200,0);
+  pushMatrix();
+  translate(50,95);
+  rotate(-.1);
+  tint(255,100);
+  image(p1, 0, 0);
+  popMatrix();
+  pushMatrix();
+  translate(110,695);
+  rotate(.2);
+  tint(255,130);
+  image(p2, 0, 0);
+  popMatrix();
+  pushMatrix();
+  translate(1070,795);
+  rotate(-.5);
+  tint(255,160);
+  image(p3, 0, 0);
+  popMatrix();
+            if(add1stPhoto)
+            {
+              pushMatrix();
+              translate(480,795);
+              rotate(-.03);
+  tint(255,200);
+  image(p4, 0, 0);
+              popMatrix();
+            }
+            if(add2ndPhoto)
+            {
+              pushMatrix();
+              translate(1280,10);
+              rotate(.1);
+  tint(255,230);
+  image(p5, 0, 0);
+              popMatrix();
+            }
+              popMatrix();
+}
+
+void drawChat()
+{
+  
+            int posX = 200;
+            int posY = 230;
+            pushMatrix();
+            translate(400,150);
+    stroke(0);
+            fill(128,0,0,70);
+            textAlign(LEFT);
+            textSize(36);
+            text("        Bob: Why aren't people more angry?", posX, posY);
+            pushMatrix();
+            translate(0,95);
+            rotate(-.1);
+            fill(0,128,0,100);
+            text("        Sam: Maybe because they are afraid...", posX, posY);
+            popMatrix();
+            pushMatrix();
+            translate(-5,90);
+            rotate(.05);
+            fill(0,0,200,130);
+            text("        Beth: all that is happening makes me sad :(", posX, posY);
+            popMatrix();
+            pushMatrix();
+            translate(-25,160);
+            rotate(.01);
+            fill(0,0,0,160);
+            text("        Rebecca: I simply do not understand", posX, posY);
+            popMatrix();
+            if(add1stMessage)
+            {
+              pushMatrix();
+              translate(25,230);
+              rotate(-.03);
+              fill(128,128,0,190);
+              text("        James: what r u talking about?", posX, posY);
+              popMatrix();
+            }
+            if(add2ndMessage)
+            {
+              pushMatrix();
+              translate(25,235);
+              rotate(.02);
+              fill(0,128,0,220);
+              text("        toneguy: i remain confused", posX, posY);
+              popMatrix();
+            } 
+            popMatrix();
 }
 
 void mousePressed() {
@@ -85,6 +206,14 @@ void keyPressed() {
     }
   } else if (key == ' ') {
     clearGestures();
+  } else if (key == '1') {
+    add1stMessage = true;
+  }else if (key == '2') {
+    add2ndMessage = true;
+  } else if (key == '3') {
+    add1stPhoto = true;
+  }else if (key == '4') {
+    add2ndPhoto = true;
   }
 }
 

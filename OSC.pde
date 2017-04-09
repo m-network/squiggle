@@ -16,7 +16,7 @@ void oscSetup(){
 void incoming(int user, String msg){
   flag = true;
   currentGestureID = (currentGestureID+1) % nGestures;
-  Gesture G = gestureArray[currentGestureID];
+  Gesture G = gestureArray[user];
   G.clear();
   G.clearPolys();
   println("Recieved message from "+user);

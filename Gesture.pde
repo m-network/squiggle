@@ -16,7 +16,7 @@ class Gesture {
 
   float jumpDx, jumpDy;
   boolean exists;
-  float INIT_TH = 14;
+  float INIT_TH = 60;
   float thickness = INIT_TH;
 
   Gesture(int mw, int mh) {
